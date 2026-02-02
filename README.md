@@ -1,4 +1,4 @@
-# Operator
+# Agent Operator
 
 A Clawdbot skill that syncs your workspace context to an ElevenLabs voice agent. Call in and it already knows what you're working on.
 
