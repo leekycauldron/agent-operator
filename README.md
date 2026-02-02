@@ -22,18 +22,18 @@ A Clawdbot skill that syncs your workspace context to an ElevenLabs voice agent.
 Copy the `operator/` folder to your skills directory:
 
 ```bash
-cp -r operator/ ~/.openclaw/skills/operator/
-```
-
-Or for workspace-level:
-```bash
+# Workspace-level (recommended)
 cp -r operator/ /path/to/your/workspace/skills/operator/
+
+# Or user-level
+mkdir -p ~/.clawdbot/skills
+cp -r operator/ ~/.clawdbot/skills/operator/
 ```
 
 ### 2. Install dependencies
 
 ```bash
-pip install -r ~/.openclaw/skills/operator/requirements.txt
+pip install -r /path/to/skills/operator/requirements.txt
 ```
 
 ### 3. Set environment variables
