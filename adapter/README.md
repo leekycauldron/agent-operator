@@ -1,6 +1,6 @@
 # Adapter
 
-Bridges ElevenLabs webhook calls to Clawdbot's chat completions API.
+Bridges ElevenLabs webhook calls to Clawdbot's main session (preserves full context).
 
 ## Setup
 
@@ -9,41 +9,29 @@ Bridges ElevenLabs webhook calls to Clawdbot's chat completions API.
    pip install -r requirements.txt
    ```
 
-2. Enable chat completions in Clawdbot (`openclaw.json`):
-   ```json
-   {
-     "gateway": {
-       "http": {
-         "endpoints": {
-           "chatCompletions": { "enabled": true }
-         }
-       }
-     }
-   }
-   ```
-
-3. Set environment variables (optional):
+2. Set environment variables:
    ```bash
    export CLAWDBOT_URL="http://localhost:18789"  # default
    export CLAWDBOT_TOKEN="your-token"            # if auth enabled
    export ADAPTER_PORT="8080"                    # default
+   export SESSION_KEY="main"                     # target session (default: main)
    ```
 
-4. Run the adapter:
+3. Run the adapter:
    ```bash
    python adapter.py
    ```
 
-5. Expose with Tailscale Funnel:
+4. Expose with Tailscale Funnel:
    ```bash
    tailscale funnel 8080
    ```
 
-6. Use the funnel URL in your ElevenLabs tool config (`YOUR_WEBHOOK_URL`).
+5. Use the funnel URL in your ElevenLabs tool config (`YOUR_WEBHOOK_URL`).
 
 ## How It Works
 
 1. ElevenLabs POSTs `{ "task": "..." }`
-2. Adapter forwards to Clawdbot's `/v1/chat/completions`
-3. Clawdbot runs an agent turn
+2. Adapter calls Clawdbot's Tools Invoke API with `sessions_send`
+3. Task goes to your main session (full context: workspace, memory, skills)
 4. Adapter returns `{ "result": "..." }` to ElevenLabs
