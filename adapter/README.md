@@ -9,7 +9,18 @@ Bridges ElevenLabs webhook calls to Clawdbot's main session (preserves full cont
    pip install -r requirements.txt
    ```
 
-2. Set environment variables:
+2. Enable agent-to-agent messaging in Clawdbot (`clawdbot.json`):
+   ```json
+   {
+     "tools": {
+       "agentToAgent": {
+         "enabled": true
+       }
+     }
+   }
+   ```
+
+3. Set environment variables:
    ```bash
    export CLAWDBOT_URL="http://localhost:18789"  # default
    export CLAWDBOT_TOKEN="your-token"            # if auth enabled
@@ -17,17 +28,17 @@ Bridges ElevenLabs webhook calls to Clawdbot's main session (preserves full cont
    export SESSION_KEY="main"                     # target session (default: main)
    ```
 
-3. Run the adapter:
+4. Run the adapter:
    ```bash
    python adapter.py
    ```
 
-4. Expose with Tailscale Funnel:
+5. Expose with Tailscale Funnel:
    ```bash
    tailscale funnel 8080
    ```
 
-5. Use the funnel URL in your ElevenLabs tool config (`YOUR_WEBHOOK_URL`).
+6. Use the funnel URL in your ElevenLabs tool config (`YOUR_WEBHOOK_URL`).
 
 ## How It Works
 
